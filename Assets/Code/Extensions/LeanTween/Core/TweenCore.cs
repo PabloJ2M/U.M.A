@@ -23,7 +23,7 @@ namespace UnityEngine.Animations
         public bool IsLoop => _isLoop;
         public bool IgnoreTimeScale => _ignoreTimeScale;
 
-        public bool IsEnabled { get; private set; }
+        public bool IsEnabled { get; set; }
 
         private void Awake() => IsEnabled = !_startDisable;
         private void OnEnable() => _group?.AddListener(this);

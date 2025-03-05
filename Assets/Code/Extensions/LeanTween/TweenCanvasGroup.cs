@@ -10,7 +10,7 @@ namespace UnityEngine.Animations
         protected override void Awake() { base.Awake(); _canvasGroup = GetComponent<CanvasGroup>(); }
         private void Start()
         {
-            _alpha = _canvasGroup.alpha = _tweenCore.IsEnabled ? _animationCurve.Evaluate(1f) : _animationCurve.Evaluate(0f);
+            _alpha = _canvasGroup.alpha = _tweenCore.IsEnabled ? Value(1f) : Value(0f);
 
             if (!_tweenCore.IsEnabled && _modifyInteraction)
                 _canvasGroup.interactable = _canvasGroup.blocksRaycasts = false;

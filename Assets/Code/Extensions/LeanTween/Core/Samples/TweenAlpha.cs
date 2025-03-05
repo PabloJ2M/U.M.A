@@ -6,6 +6,7 @@ namespace UnityEngine.Animations
         
         public void FadeIn() => _tweenCore?.Play(true);
         public void FadeOut() => _tweenCore?.Play(false);
+        protected float Value(float time) => _animationCurve.Evaluate(time);
 
         protected override void OnUpdate(float value) => _alpha = value;
         protected override void OnComplete() { base.OnComplete(); _alpha = _tweenCore.IsEnabled ? 1f : 0f; }
@@ -15,7 +16,7 @@ namespace UnityEngine.Animations
             CancelTween();
 
             //create tween animation
-            LTDescr tween = LeanTween.value(_self, _alpha, value ? 1f : 0f, _tweenCore.Time).setEase(_animationCurve);
+            LTDescr tween = LeanTween.value(_self, _alpha, value ? Value(1f) : Value(0f), _tweenCore.Time).setEase(_animationCurve);
             if (_tweenCore.IgnoreTimeScale) tween.setIgnoreTimeScale(true);
             if (_tweenCore.Delay != 0) tween.setDelay(_tweenCore.Delay);
             tween.setOnComplete(OnComplete);

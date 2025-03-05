@@ -21,7 +21,7 @@ namespace Player.Controller
             bool isGrounded = Physics2D.BoxCast(transform.position, _size * Vector2.one, 0, Vector2.down, _distance, _groundMask);
 
             //air jump time delay
-            bool airJump = _body.linearVelocity.y <= 3f && _airTime < _coyoteTime;
+            bool airJump = _body.linearVelocity.y <= _body.gravityScale && _airTime < _coyoteTime;
             _airTime = isGrounded ? 0 : _airTime += Time.deltaTime;
             _canJump = isGrounded || airJump;
         }
