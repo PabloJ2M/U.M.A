@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9193075432320736742}
   - component: {fileID: 3403137748353028473}
   - component: {fileID: 858326915541276365}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: magnetic_wall
   m_TagString: Magnet
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0088991134e69d649b338f2898204d0a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -150,6 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _comparePolarity: 0
+  _hideLayer:
+    serializedVersion: 2
+    m_Bits: 4
   _onStatusChanged:
     m_PersistentCalls:
       m_Calls:
@@ -192,18 +195,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9193075432320736742}
-        m_TargetAssemblyTypeName: UnityEngine.Collider2D, UnityEngine
-        m_MethodName: set_isTrigger
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &8647309944969781919
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5553596166103962117}
   - component: {fileID: 7749466476418845355}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}

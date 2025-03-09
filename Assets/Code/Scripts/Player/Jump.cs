@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Player.Controller
 {
+    [RequireComponent(typeof(PlayerCore))]
     public class Jump : MonoBehaviour
     {
         [SerializeField] private float _jumpForce, _coyoteTime = 0.2f;
@@ -10,31 +11,33 @@ namespace Player.Controller
         [SerializeField] private LayerMask _groundMask;
         [SerializeField] private float _size = 0.5f, _distance = 1;
 
-        private Rigidbody2D _body;
+        private PlayerCore _player;
         private float _airTime;
         private bool _canJump;
 
-        private void Awake() => _body = GetComponent<Rigidbody2D>();
+        private void Awake() => _player = GetComponent<PlayerCore>();
         private void Update()
         {
             //ground detection
-            bool isGrounded = Physics2D.BoxCast(transform.position, _size * Vector2.one, 0, Vector2.down, _distance, _groundMask);
+            bool isGrounded = _player.DetectBox(_size, _distance, Vector2.down, _groundMask).collider != null;
 
             //air jump time delay
-            bool airJump = _body.linearVelocity.y <= _body.gravityScale && _airTime < _coyoteTime;
+            bool airJump = _player.VerticalVelocity <= _player.GravityScale && _airTime < _coyoteTime;
             _airTime = isGrounded ? 0 : _airTime += Time.deltaTime;
             _canJump = isGrounded || airJump;
         }
         private void OnJump()
         {
             if (!_canJump) return;
-            _body.linearVelocityY = 0;
-            _body.AddForce(_jumpForce * Vector2.up, ForceMode2D.Impulse);
+            _player.StopVerticalVelocity();
+            _player.AddForce(_jumpForce * Vector2.up);
         }
+        public void ResetAirTime() => _airTime = 0;
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(_distance * Vector3.down + transform.position, _size * Vector2.one);
+            Gizmos.DrawWireCube(transform.position + (_distance * Vector3.down), _size * Vector2.one);
         }
     }
 }
